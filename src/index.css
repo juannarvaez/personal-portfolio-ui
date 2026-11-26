@@ -1,1 +1,109 @@
+/*
+ * Design system typefaces (self-hosted variable fonts via Fontsource):
+ * - Fraunces        → headings, quotes and brand (font-display)
+ * - Instrument Sans → reading and UI (font-sans, default)
+ * - JetBrains Mono  → technical: labels, metadata, controls (font-mono)
+ */
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/instrument-sans';
+@import '@fontsource-variable/jetbrains-mono';
+
 @import 'tailwindcss';
+@config '../tailwind.config.js';
+
+/*
+ * Type scale: each `text-*` token also sets its font family, so a single class
+ * reproduces the Figma text style (e.g. `text-label` → JetBrains Mono 12px).
+ * Size / line height / tracking / weight live in tailwind.config.js (fontSize);
+ * these utilities are merged with those generated ones and keep variants
+ * (`md:text-h2`) working.
+ */
+@utility text-h1 {
+  font-family: --theme(--font-display);
+}
+@utility text-h2 {
+  font-family: --theme(--font-display);
+}
+@utility text-h3 {
+  font-family: --theme(--font-display);
+}
+@utility text-h4 {
+  font-family: --theme(--font-display);
+}
+@utility text-quote {
+  font-family: --theme(--font-display);
+}
+@utility text-brand {
+  font-family: --theme(--font-display);
+}
+@utility text-lead {
+  font-family: --theme(--font-sans);
+}
+@utility text-body {
+  font-family: --theme(--font-sans);
+}
+@utility text-body-strong {
+  font-family: --theme(--font-sans);
+}
+@utility text-small {
+  font-family: --theme(--font-sans);
+}
+@utility text-button {
+  font-family: --theme(--font-sans);
+}
+@utility text-label {
+  font-family: --theme(--font-mono);
+}
+@utility text-control {
+  font-family: --theme(--font-mono);
+}
+
+@layer base {
+  html {
+    @apply bg-surface-mist text-body antialiased;
+  }
+
+  /* One H1 per screen; headings are always serif. */
+  h1 {
+    @apply text-h1;
+  }
+  h2 {
+    @apply text-h2;
+  }
+  h3 {
+    @apply text-h3;
+  }
+  h4 {
+    @apply text-h4;
+  }
+}
+
+/*
+ * Liquid glass rim: a 1.5px gradient border that catches light on the
+ * top-left and bottom-right edges. Uses a mask so the centre stays clear.
+ */
+@utility glass-rim {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    pointer-events: none;
+    background: linear-gradient(
+      135deg,
+      rgb(255 255 255 / 0.95) 0%,
+      rgb(255 255 255 / 0.25) 22%,
+      rgb(255 255 255 / 0.06) 50%,
+      rgb(255 255 255 / 0.2) 78%,
+      rgb(255 255 255 / 0.7) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+  }
+}

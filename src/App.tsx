@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import { Button } from '@/components/Button'
+import { Outlet } from 'react-router'
+import { LocaleProvider } from '@/i18n'
 
+/** Root layout: shared chrome and providers for every page go here. */
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-gray-50 p-4">
-      <h1 className="text-3xl font-bold text-gray-900">Personal Portfolio</h1>
-      <Button onClick={() => setCount((c) => c + 1)}>Count is {count}</Button>
-    </main>
+    <LocaleProvider>
+      <main className="min-h-screen">
+        <Outlet />
+      </main>
+    </LocaleProvider>
   )
 }
 
